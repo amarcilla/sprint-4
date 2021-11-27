@@ -140,7 +140,7 @@ const millorPeli = films[films.length - 1];
 // Millor peli del any
 console.log("Millor peli del any " + year + "-> " +  millorPeli.title + " --> puntuació: " + millorPeli.score );
 
-return  
+return  millorPeli;
 
 }
 
