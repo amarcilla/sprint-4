@@ -2,6 +2,8 @@
 // function getAllDirectors(array) {
 //   let result = [];
 
+const movies = require("./data");
+
 //   result = movies.map(movie => {
 //     console.log("EXERCICE 1 ->", movie.director);
 //     return movie.director;
@@ -9,7 +11,7 @@
 //   return result;
 // }
 
-let getAllDirectors =  array => {
+let getAllDirectors = array => {
   let result = [];
 
   result = movies.map(movie => {
@@ -27,26 +29,30 @@ function getMoviesFromDirector(array, director) {
 
 }
 
+function moviesAverage(films) {
+  // acumulem a la variable score = la puntuacio de cada pelicula
+  // a la varaible contador anem guardant el que anem sumant ... en aquest cas film.score
+  // El 0 serveix per incialitzar la variable contador = 0
+  const scores = films.reduce((contador, film) => {
+    console.log("film: " + film.title + " Score: " + film.score + " sumatori score: " + (parseFloat(contador) + parseFloat(film.score)));
+    return contador + film.score;
+  }, 0);
+
+  // Calculem la mitja... deixem a dos decimals
+  const mitja = (scores / parseInt(films.length)).toFixed(2);
+  console.log("-----------------------------");
+  console.log("Total Scores " + scores.toFixed(2) + " Numero pelis " + films.length);
+  console.log("Mitja Scores: " + mitja);
+}
+
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
 
   // Filtrem totes les pelis del Director seleccionat
   const films = movies.filter(movie => movie.director == director);
-  console.log("Director: " + director );
+  console.log("Director: " + director);
+  const MoviesByAverage = moviesAverage(films);
 
-  // acumulem a la variable score = la puntuacio de cada pelicula
-  // a la varaible contador anem guardant el que anem sumant ... en aquest cas film.score
-  // El 0 serveix per incialitzar la variable contador = 0
-  const scores = films.reduce((contador, film) => {
-    console.log("film: " + film.title + " Score: "  + film.score + " sumatori score: " +  (parseFloat(contador) + parseFloat(film.score)));    
-    return contador + film.score;    
-  },0);  
-  
-  // Calculem la mitja... deixem a dos decimals
-  const mitja = (scores / parseInt(films.length)).toFixed(2);  
-  console.log("-----------------------------");
-  console.log("Total Scores "  + scores.toFixed(2)  + " Numero pelis " + films.length  );  
-  console.log("Mitja Scores: " + mitja );
 }
 
 // Exercise 4:  Alphabetic order by title 
@@ -59,7 +65,7 @@ function orderAlphabetically(array) {
   });
 
   result.sort();
-  const vintPrimers = result.slice(0,20);
+  const vintPrimers = result.slice(0, 20);
   return vintPrimers;
 
 }
@@ -78,16 +84,25 @@ function orderByYear() {
   result.sort((a, b) => a.title !== b.title ? a.title < b.title ? -1 : 1 : 0);
   // ara ho endreçem per any
   result.sort((a, b) => a.year - b.year);
-  
-  //result.sort();
-  const vintPrimers = result.slice(0,20);
-  return vintPrimers;
 
+  //result.sort();
+  const vintPrimers = result.slice(0, 20);
+  return vintPrimers;
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory() {
+function moviesAverageByCategory(array, categoria) {
+  //console.log("genre: " + categoria );
+  // Filtrem totes les pelis de la categroia seleccionada
+  //let films = movies.filter(movie => movie['genre'].indexOf(categoria));
 
+  //let films = movies.filter(movie => movie['genre'].indexOf(categoria));
+  //let films = movies.filter(function() {
+    //console.log(movie.title);
+  //  });
+
+  // Calculem la mitjana de puntuació
+  //const MoviesByAverage = moviesAverage(films);
 }
 
 // Exercise 7: Modify the duration of movies to minutes
