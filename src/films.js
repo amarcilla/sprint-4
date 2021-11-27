@@ -1,27 +1,47 @@
 // Exercise 1: Get the array of all directors.
 function getAllDirectors(array) {
   let result = [];
-  
+
   result = movies.map(movie => {
     console.log("EXERCICE 1 ->", movie.director);
     return movie.director;
-});
+  });
   return result;
 }
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
- 
+
+  const films = movies.filter(movie => movie.director == director);
+  return films;
+
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
+
+  // Filtrem totes les pelis del Director seleccionat
+  const films = movies.filter(movie => movie.director == director);
+  console.log("Director: " + director );
+
+  // acumulem a la variable score = la puntuacio de cada pelicula
+  // a la varaible contador anem guardant el que anem sumant ... en aquest cas film.score
+  // El 0 serveix per incialitzar la variable contador = 0
+  const scores = films.reduce((contador, film) => {
+    console.log("film: " + film.title + " Score: "  + film.score + " sumatori score: " +  (parseFloat(contador) + parseFloat(film.score)));    
+    return contador + film.score;    
+  },0);  
   
+  // Calculem la mitja... deixem a dos decimals
+  const mitja = (scores / parseInt(films.length)).toFixed(2);  
+  console.log("-----------------------------");
+  console.log("Total Scores "  + scores.toFixed(2)  + " Numero pelis " + films.length  );  
+  console.log("Mitja Scores: " + mitja );
 }
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(array) {
-  
+
 }
 
 // Exercise 5: Order by year, ascending
@@ -41,7 +61,7 @@ function hoursToMinutes() {
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear() {
-  
+
 }
 
 
