@@ -2,7 +2,7 @@
 // function getAllDirectors(array) {
 //   let result = [];
 
-//const movies = require("./data");
+const movies = require("./data");
 
 //   result = movies.map(movie => {
 //     console.log("EXERCICE 1 ->", movie.director);
@@ -92,20 +92,14 @@ function orderByYear() {
 
 // Exercise 6: Calculate the average of the movies in a category
 function moviesAverageByCategory(array, categoria) {
-  console.log("genre: " + categoria);
-  console.log("--------------------");
-
+  //console.log("genre: " + categoria );
   // Filtrem totes les pelis de la categroia seleccionada
-  var films = movies.filter(function (movie) {
-    const genres = movie.genre ;
-    // Miram cada un dels gèneres de la pelicula.. o estic fent amb Vanilla JS.. es pot fer amb ES6?
-    for (let i = 0; i < genres.length; i++) {
-      if ( genres[i]  == categoria){
-        console.log(movie.title );
-        return movie;
-      }
-    }
-    });
+  //let films = movies.filter(movie => movie['genre'].indexOf(categoria));
+
+  //let films = movies.filter(movie => movie['genre'].indexOf(categoria));
+  //let films = movies.filter(function() {
+    //console.log(movie.title);
+  //  });
 
   // Calculem la mitjana de puntuació
   //const MoviesByAverage = moviesAverage(films);
