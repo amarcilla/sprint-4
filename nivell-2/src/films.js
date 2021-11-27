@@ -130,7 +130,17 @@ function hoursToMinutes() {
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
+function bestFilmOfYear(year) {
+const films = movies.filter(movie => movie.year == year);
+
+// endreço per score
+films.sort((a,b) => ( a.score > b.score ) ? 1: -1)
+const millorPeli = films[films.length - 1];
+
+// Millor peli del any
+console.log("Millor peli del any " + year + "-> " +  millorPeli.title + " --> puntuació: " + millorPeli.score );
+
+return  
 
 }
 
