@@ -97,15 +97,15 @@ function moviesAverageByCategory(array, categoria) {
 
   // Filtrem totes les pelis de la categroia seleccionada
   var films = movies.filter(function (movie) {
-    const genres = movie.genre ;
+    const genres = movie.genre;
     // Miram cada un dels gèneres de la pelicula.. o estic fent amb Vanilla JS.. es pot fer amb ES6?
     for (let i = 0; i < genres.length; i++) {
-      if ( genres[i]  == categoria){
-        console.log(movie.title );
+      if (genres[i] == categoria) {
+        console.log(movie.title);
         return movie;
       }
     }
-    });
+  });
 
   // Calculem la mitjana de puntuació
   const MoviesByAverage = moviesAverage(films);
@@ -113,7 +113,20 @@ function moviesAverageByCategory(array, categoria) {
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes() {
+  let result = [];
 
+  result = movies.map(movie => {
+    console.log("Duration ->", movie.duration);
+    const indexH = movie.duration.indexOf('h');
+    const horas= movie.duration.substr(0,indexH);
+    const indexM = movie.duration.indexOf('min');
+    const minutos= movie.duration.substr(indexH+1,indexM-2);    
+    movie.duration =parseInt(60*horas)  + parseInt(minutos);
+    console.log("Durada en minuts ->", movie.duration);
+    return movies;
+  });
+
+  return result;
 }
 
 // Exercise 8: Get the best film of a year
