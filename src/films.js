@@ -108,7 +108,7 @@ function moviesAverageByCategory(array, categoria) {
     });
 
   // Calculem la mitjana de puntuació
-  //const MoviesByAverage = moviesAverage(films);
+  const MoviesByAverage = moviesAverage(films);
 }
 
 // Exercise 7: Modify the duration of movies to minutes
