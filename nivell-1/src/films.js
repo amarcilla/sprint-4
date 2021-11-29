@@ -41,25 +41,25 @@ function moviesAverage(films) {
   // Calculem la mitja... deixem a dos decimals
   const mitja = (scores / parseInt(films.length)).toFixed(2);
   console.log("-----------------------------");
-  console.log("Total Scores " + scores.toFixed(2) + " Numero pelis " + films.length);
+  console.log("Total Scores " + scores + " Numero pelis " + films.length);
   console.log("Mitja Scores: " + mitja);
+  return parseFloat(mitja);
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
 
   // Filtrem totes les pelis del Director seleccionat
-  const films = movies.filter(movie => movie.director == director);
+  const films = array.filter(movie => movie.director == director);
   console.log("Director: " + director);
-  const MoviesByAverage = moviesAverage(films);
-
+  return parseFloat(moviesAverage(films)) ;
 }
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(array) {
   let result = [];
 
-  result = movies.map(movie => {
+  result = array.map(movie => {
     console.log("titol ->", movie.title);
     return movie.title;
   });
@@ -71,10 +71,10 @@ function orderAlphabetically(array) {
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear() {
+function orderByYear(array) {
   let result = [];
 
-  result = movies.map(movie => ({
+  result = array.map(movie => ({
     year: movie.year,
     title: movie.title
   }
@@ -96,7 +96,7 @@ function moviesAverageByCategory(array, categoria) {
   console.log("--------------------");
 
   // Filtrem totes les pelis de la categroia seleccionada
-  var films = movies.filter(function (movie) {
+  var films = array.filter(function (movie) {
     const genres = movie.genre ;
     // Miram cada un dels gèneres de la pelicula.. o estic fent amb Vanilla JS.. es pot fer amb ES6?
     for (let i = 0; i < genres.length; i++) {
@@ -108,7 +108,7 @@ function moviesAverageByCategory(array, categoria) {
     });
 
   // Calculem la mitjana de puntuació
-  const MoviesByAverage = moviesAverage(films);
+  return parseFloat(moviesAverage(films));
 }
 
 // Exercise 7: Modify the duration of movies to minutes
