@@ -11,21 +11,20 @@
 //   return result;
 // }
 
-let getAllDirectors = movies => {
+let getAllDirectors = array => {
   let result = [];
 
   result = movies.map(movie => {
     console.log("EXERCICE 1 ->", movie.director);
     return movie.director;
   });
-  
   return result;
 }
 
 // Exercise 2: Get the films of a certain director
-function getMoviesFromDirector(movies, director) {
-  let films = movies.filter(movie => movie.director == director);
+function getMoviesFromDirector(array, director) {
 
+  const films = movies.filter(movie => movie.director == director);
   return films;
 
 }
@@ -35,13 +34,8 @@ function moviesAverage(films) {
   // a la varaible contador anem guardant el que anem sumant ... en aquest cas film.score
   // El 0 serveix per incialitzar la variable contador = 0
   const scores = films.reduce((contador, film) => {
-    //should return average even if one of the movies does not have score
-    if (film.score ) {
-      return contador + film.score
-      console.log("film: " + film.title + " Score: " + film.score + " sumatori score: " + (parseFloat(contador) + parseFloat(film.score)));
-    } else {
-      return contador
-    }    
+    console.log("film: " + film.title + " Score: " + film.score + " sumatori score: " + (parseFloat(contador) + parseFloat(film.score)));
+    return contador + film.score;
   }, 0);
 
   // Calculem la mitja... deixem a dos decimals
@@ -49,24 +43,23 @@ function moviesAverage(films) {
   console.log("-----------------------------");
   console.log("Total Scores " + scores.toFixed(2) + " Numero pelis " + films.length);
   console.log("Mitja Scores: " + mitja);
-  return parseFloat(mitja);
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
-function moviesAverageOfDirector(movies, director) {
+function moviesAverageOfDirector(array, director) {
 
   // Filtrem totes les pelis del Director seleccionat
   const films = movies.filter(movie => movie.director == director);
   console.log("Director: " + director);
   const MoviesByAverage = moviesAverage(films);
 
-  return MoviesByAverage;
 }
 
 // Exercise 4:  Alphabetic order by title 
-function orderAlphabetically(movies) {  
+function orderAlphabetically(array) {
+  let result = [];
 
-  let result = movies.map(movie => {
+  result = movies.map(movie => {
     console.log("titol ->", movie.title);
     return movie.title;
   });
@@ -78,8 +71,10 @@ function orderAlphabetically(movies) {
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear(movies) {
-  let result = movies.map(movie => ({
+function orderByYear() {
+  let result = [];
+
+  result = movies.map(movie => ({
     year: movie.year,
     title: movie.title
   }
@@ -96,34 +91,56 @@ function orderByYear(movies) {
 }
 
 // Exercise 6: Calculate the average of the movies in a category
-function moviesAverageByCategory(movies, categoria) {
+function moviesAverageByCategory(array, categoria) {
   console.log("genre: " + categoria);
   console.log("--------------------");
 
   // Filtrem totes les pelis de la categroia seleccionada
   var films = movies.filter(function (movie) {
-    const genres = movie.genre ;
+    const genres = movie.genre;
     // Miram cada un dels gèneres de la pelicula.. o estic fent amb Vanilla JS.. es pot fer amb ES6?
     for (let i = 0; i < genres.length; i++) {
-      if ( genres[i]  == categoria){
-        console.log(movie.title );
+      if (genres[i] == categoria) {
+        console.log(movie.title);
         return movie;
       }
     }
-    });
+  });
 
   // Calculem la mitjana de puntuació
-  return moviesAverage(films);
-
+  const MoviesByAverage = moviesAverage(films);
 }
 
 // Exercise 7: Modify the duration of movies to minutes
 function hoursToMinutes() {
+  let result = [];
 
+  result = movies.map(movie => {
+    console.log("Duration ->", movie.duration);
+    const indexH = movie.duration.indexOf('h');
+    const horas= movie.duration.substr(0,indexH);
+    const indexM = movie.duration.indexOf('min');
+    const minutos= movie.duration.substr(indexH+1,indexM-2);    
+    movie.duration =parseInt(60*horas)  + parseInt(minutos);
+    console.log("Durada en minuts ->", movie.duration);
+    return movies;
+  });
+
+  return result;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear() {
+function bestFilmOfYear(year) {
+const films = movies.filter(movie => movie.year == year);
+
+// endreço per score
+films.sort((a,b) => ( a.score > b.score ) ? 1: -1)
+const millorPeli = films[films.length - 1];
+
+// Millor peli del any
+console.log("Millor peli del any " + year + "-> " +  millorPeli.title + " --> puntuació: " + millorPeli.score );
+
+return  millorPeli;
 
 }
 
