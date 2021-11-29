@@ -1,20 +1,7 @@
 // Exercise 1: Get the array of all directors.
-// function getAllDirectors(array) {
-//   let result = [];
-
-//const movies = require("./data");
-
-//   result = movies.map(movie => {
-//     console.log("EXERCICE 1 ->", movie.director);
-//     return movie.director;
-//   });
-//   return result;
-// }
-
-let getAllDirectors = array => {
+function getAllDirectors(array) {
   let result = [];
-
-  result = movies.map(movie => {
+  result = array.map(movie => {
     console.log("EXERCICE 1 ->", movie.director);
     return movie.director;
   });
@@ -24,7 +11,7 @@ let getAllDirectors = array => {
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
 
-  const films = movies.filter(movie => movie.director == director);
+  const films = array.filter(movie => movie.director == director);
   return films;
 
 }
@@ -33,33 +20,40 @@ function moviesAverage(films) {
   // acumulem a la variable score = la puntuacio de cada pelicula
   // a la varaible contador anem guardant el que anem sumant ... en aquest cas film.score
   // El 0 serveix per incialitzar la variable contador = 0
+  let scoreReal;
+
   const scores = films.reduce((contador, film) => {
-    console.log("film: " + film.title + " Score: " + film.score + " sumatori score: " + (parseFloat(contador) + parseFloat(film.score)));
-    return contador + film.score;
+    if ((film.score == null) | (film.score == "") | isNaN(film.score)) {
+      scoreReal = 5
+    } else {
+      scoreReal = film.score
+    }
+    console.log("film: " + film.title + " Score: " + scoreReal + " sumatori score: " + (parseFloat(contador) + parseFloat(scoreReal)));
+    return contador + scoreReal;
   }, 0);
 
   // Calculem la mitja... deixem a dos decimals
   const mitja = (scores / parseInt(films.length)).toFixed(2);
   console.log("-----------------------------");
-  console.log("Total Scores " + scores.toFixed(2) + " Numero pelis " + films.length);
+  console.log("Total Scores " + scores + " Numero pelis " + films.length);
   console.log("Mitja Scores: " + mitja);
+  return parseFloat(mitja);
 }
 
 // Exercise 3: Calculate the average of the films of a given director.
 function moviesAverageOfDirector(array, director) {
 
   // Filtrem totes les pelis del Director seleccionat
-  const films = movies.filter(movie => movie.director == director);
+  const films = array.filter(movie => movie.director == director);
   console.log("Director: " + director);
-  const MoviesByAverage = moviesAverage(films);
-
+  return parseFloat(moviesAverage(films));
 }
 
 // Exercise 4:  Alphabetic order by title 
 function orderAlphabetically(array) {
   let result = [];
 
-  result = movies.map(movie => {
+  result = array.map(movie => {
     console.log("titol ->", movie.title);
     return movie.title;
   });
@@ -71,10 +65,10 @@ function orderAlphabetically(array) {
 }
 
 // Exercise 5: Order by year, ascending
-function orderByYear() {
+function orderByYear(array) {
   let result = [];
 
-  result = movies.map(movie => ({
+  result = array.map(movie => ({
     year: movie.year,
     title: movie.title
   }
@@ -96,7 +90,7 @@ function moviesAverageByCategory(array, categoria) {
   console.log("--------------------");
 
   // Filtrem totes les pelis de la categroia seleccionada
-  var films = movies.filter(function (movie) {
+  var films = array.filter(function (movie) {
     const genres = movie.genre;
     // Miram cada un dels gèneres de la pelicula.. o estic fent amb Vanilla JS.. es pot fer amb ES6?
     for (let i = 0; i < genres.length; i++) {
@@ -108,39 +102,52 @@ function moviesAverageByCategory(array, categoria) {
   });
 
   // Calculem la mitjana de puntuació
-  const MoviesByAverage = moviesAverage(films);
+  return parseFloat(moviesAverage(films));
 }
 
-// Exercise 7: Modify the duration of movies to minutes
-function hoursToMinutes() {
-  let result = [];
 
-  result = movies.map(movie => {
+// Exercise 7: Modify the duration of movies to minutes
+function hoursToMinutes(array) {
+
+  const result = array.map(movie => {
     console.log("Duration ->", movie.duration);
     const indexH = movie.duration.indexOf('h');
-    const horas= movie.duration.substr(0,indexH);
+    const horas = movie.duration.substr(0, indexH);
     const indexM = movie.duration.indexOf('min');
-    const minutos= movie.duration.substr(indexH+1,indexM-2);    
-    movie.duration =parseInt(60*horas)  + parseInt(minutos);
+    let minutos = movie.duration.substr(indexH + 1, indexM - 2);
+    if (minutos == "") minutos = 0
+    movie.duration = parseInt(parseInt(60 * horas) + parseInt(minutos));
     console.log("Durada en minuts ->", movie.duration);
-    return movies;
+    return movie
   });
 
   return result;
 }
 
 // Exercise 8: Get the best film of a year
-function bestFilmOfYear(year) {
-const films = movies.filter(movie => movie.year == year);
+function bestFilmOfYear(array, year) {
+  if (year === undefined) {
+    console.log("sense any");
+    return 'Undefined value!'
+  }
 
-// endreço per score
-films.sort((a,b) => ( a.score > b.score ) ? 1: -1)
-const millorPeli = films[films.length - 1];
+  const films = array.filter(movie => movie.year == year);
 
-// Millor peli del any
-console.log("Millor peli del any " + year + "-> " +  millorPeli.title + " --> puntuació: " + millorPeli.score );
 
-return  millorPeli;
+  // endreço per score
+  //films.sort((a, b) => (a.score > b.score) ? 1 : -1)
+  //const millorPeli = films[films.length - 1];
+
+  const millorPeli = films.reduce(function (prev, current) {
+    return (prev.score > current.score) ? prev : current
+  }) //returns object
+
+
+
+  // Millor peli del any
+  console.log("Millor peli del any " + year + "-> " + millorPeli.title + " --> puntuació: " + millorPeli.score);
+
+  return millorPeli;
 
 }
 
