@@ -11,7 +11,7 @@
 //   return result;
 // }
 
-let getAllDirectors = array => {
+let getAllDirectors = movies => {
   let result = [];
 
   result = movies.map(movie => {
@@ -24,7 +24,7 @@ let getAllDirectors = array => {
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(array, director) {
 
-  const films = movies.filter(movie => movie.director == director);
+  const films = array.filter(movie => movie.director == director);
   return films;
 
 }
