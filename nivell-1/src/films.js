@@ -1,26 +1,14 @@
 // Exercise 1: Get the array of all directors.
-// function getAllDirectors(array) {
-//   let result = [];
+ function getAllDirectors(array) {
+   let result = [];
 
-//const movies = require("./data");
+   result = array.map(movie => {
+     console.log("EXERCICE 1 ->", movie.director);
+     return movie.director;
+ });
+   return result;
+ }
 
-//   result = movies.map(movie => {
-//     console.log("EXERCICE 1 ->", movie.director);
-//     return movie.director;
-//   });
-//   return result;
-// }
-
-let getAllDirectors = movies => {
-  let result = [];
-
-  result = movies.map(movie => {
-    console.log("EXERCICE 1 ->", movie.director);
-    return movie.director;
-  });
-  
-  return result;
-}
 
 // Exercise 2: Get the films of a certain director
 function getMoviesFromDirector(movies, director) {
