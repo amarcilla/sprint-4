@@ -116,9 +116,15 @@ function hoursToMinutes(array) {
     const indexM = movie.duration.indexOf('min');
     let minutos = movie.duration.substr(indexH + 1, indexM - 2);
     if (minutos == "") minutos = 0
-    movie.duration = parseInt(parseInt(60 * horas) + parseInt(minutos));
+    //movie.duration = parseInt(parseInt(60 * horas) + parseInt(minutos));
     console.log("Durada en minuts ->", movie.duration);
-    return movie
+
+    // Veure aquest article per entendre pq fem aquesta assignacio Obejcte
+    // Quan modifiquem amb map, sempre es referencia al Objecte ... 
+    // https://stackoverflow.com/questions/35922429/why-does-a-js-map-on-an-array-modify-the-original-array
+    return Object.assign({}, movie, {
+      duration: parseInt(parseInt(60 * horas) + parseInt(minutos))
+    })
   });
 
   return result;
@@ -126,31 +132,25 @@ function hoursToMinutes(array) {
 
 // Exercise 8: Get the best film of a year
 function bestFilmOfYear(array, year) {
-  if (year === undefined) {
-    console.log("sense any");
-    return 'Undefined value!'
-  }
+  if (array.length === 0) return undefined;
+  if (year === undefined) return 'Undefined value!'
 
-  const films = array.filter(movie => movie.year == year);
+  // Filtro per any
+  let films = array.filter(movie => movie.year == year);
 
-
-  // endreço per score
-  //films.sort((a, b) => (a.score > b.score) ? 1 : -1)
-  //const millorPeli = films[films.length - 1];
-
-  const millorPeli = films.reduce(function (prev, current) {
-    return (prev.score > current.score) ? prev : current
-  }) //returns object
-
-
+  // endreço per score   
+  let arrayMillorPeli = [];
+  
+  const millorPeli= films.reduce(function (prev, current) {
+    return (prev.score > current.score ? prev : current)
+  }) 
 
   // Millor peli del any
   console.log("Millor peli del any " + year + "-> " + millorPeli.title + " --> puntuació: " + millorPeli.score);
 
-  return millorPeli;
-
+  arrayMillorPeli.push(millorPeli)
+  return arrayMillorPeli;
 }
-
 
 
 // The following is required to make unit tests work.
